@@ -43,6 +43,7 @@ app.get('/delete/:id', (req, res) => {
     }
   });
 });
+
 //update
 app.get('/update/:id', (req, res) => {
  const id = req.params.id;
@@ -50,5 +51,13 @@ app.get('/update/:id', (req, res) => {
    res.render("todoEdit.ejs",{todotasks: tasks,idTask:id});
  })
 });
+
+app.put("/update/:id",(req,res)=>{
+  const id = req.params.id;
+  Task.findByIdAndUpdate(id,{title: req.body.title}, err=>{
+    if(err) return res.send(500,err);
+    else res.redirect("/");
+  });
+})
 
 app.listen(3000, () => console.log('express has started!'));

@@ -1,8 +1,11 @@
 const express = require('express');
 const req = require('express/lib/request');
 const res = require('express/lib/response');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const app = express();
+
+app.use(methodOverride('_method',{methods:['POST','GET']}));
 
 app.set('view engine', 'ejs');
 
@@ -26,7 +29,7 @@ app.get('/', (req, res) => {
   Task.find({}, (error, tasks) => {
     if (error) console.log(`there was an error: ${error}`);
     else {
-      res.render('todo.ejs');
+      res.render('todo.ejs', {todotasks: tasks});
     }
   });
 });
@@ -41,17 +44,11 @@ app.get('/delete/:id', (req, res) => {
   });
 });
 //update
-app.get('/update/:id/:title', (req, res) => {
-  Task.updateOne(
-    { _id: req.params.id },
-    { title: req.params.title },
-    (error) => {
-      if (error) console.log(`there was an error: ${error}`);
-      else {
-        console.log('task is updated');
-      }
-    }
-  );
+app.get('/update/:id', (req, res) => {
+ const id = req.params.id;
+ Task.find({},(error,tasks)=>{
+   res.render("todoEdit.ejs",{todotasks: tasks,idTask:id});
+ })
 });
 
 app.listen(3000, () => console.log('express has started!'));

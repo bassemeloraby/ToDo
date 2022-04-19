@@ -35,11 +35,11 @@ app.get('/', (req, res) => {
 });
 
 //delete //localhost:3000/delete/:id
-app.get('/delete/:id', (req, res) => {
+app.delete('/delete/:id', (req, res) => {
   Task.deleteOne({ _id: req.params.id }, (error) => {
     if (error) console.log(`there was an error: ${error}`);
     else {
-      console.log('one task was deleted');
+      res.redirect('/');
     }
   });
 });

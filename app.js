@@ -21,16 +21,44 @@ mongoose.connect('mongodb://localhost:27017/ToDo', {
 
 
 //insert //localhost:3000/create/:title
-// app.post('/create',);
+app.post('/create', (req, res) => {
+  const firstTask = new Task({ title: req.body.title });
+  firstTask.save().then(() => res.redirect('/'));
+});
 //find//show
-// app.get('/',);
+app.get('/', (req, res) => {
+  Task.find({}, (error, tasks) => {
+    if (error) console.log(`there was an error: ${error}`);
+    else {
+      res.render('todo.ejs', {todotasks: tasks});
+    }
+  });
+});
 
 //delete //localhost:3000/delete/:id
-// app.delete('/delete/:id',);
+app.delete('/delete/:id', (req, res) => {
+  Task.deleteOne({ _id: req.params.id }, (error) => {
+    if (error) console.log(`there was an error: ${error}`);
+    else {
+      res.redirect("/");
+    }
+  });
+});
 
 //update
-// app.get('/update/:id',);
+app.get('/update/:id', (req, res) => {
+ const id = req.params.id;
+ Task.find({},(error,tasks)=>{
+   res.render("todoEdit.ejs",{todotasks: tasks,idTask:id});
+ })
+});
 
-// app.put("/update/:id",)
+app.put("/update/:id",(req,res)=>{
+  const id = req.params.id;
+  Task.findByIdAndUpdate(id,{title: req.body.title}, err=>{
+    if(err) return res.send(500,err);
+    else res.redirect("/");
+  });
+})
 
 app.listen(3000, () => console.log('express has started!'));

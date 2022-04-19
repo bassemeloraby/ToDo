@@ -4,7 +4,7 @@ const res = require('express/lib/response');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const app = express();
-const Task = require('./models/tasks');
+
 app.use(methodOverride('_method',{methods:['POST','GET']}));
 
 app.set('view engine', 'ejs');
@@ -16,6 +16,8 @@ mongoose.connect('mongodb://localhost:27017/ToDo', {
   useUnifiedTopology: true,
 });
 
+const schema = new mongoose.Schema({ title: String });
+const Task = mongoose.model('Task', schema);
 
 //insert //localhost:3000/create/:title
 app.post('/create', (req, res) => {

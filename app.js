@@ -3,7 +3,6 @@ const req = require('express/lib/request');
 const { render } = require('express/lib/response');
 const res = require('express/lib/response');
 const methodOverride = require('method-override');
-const Task = require('./models/tasks');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -18,7 +17,8 @@ mongoose.connect('mongodb://localhost:27017/ToDo', {
   useUnifiedTopology: true,
 });
 
-
+const schema = new mongoose.Schema({ title: String });
+const Task = mongoose.model('Task', schema);
 
 //insert //localhost:3000/create/:title
 app.post('/create', (req, res) => {

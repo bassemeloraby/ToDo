@@ -1,6 +1,5 @@
 const express = require('express');
 const req = require('express/lib/request');
-const { render } = require('express/lib/response');
 const res = require('express/lib/response');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
@@ -36,11 +35,11 @@ app.get('/', (req, res) => {
 });
 
 //delete //localhost:3000/delete/:id
-app.delete('/delete/:id', (req, res) => {
+app.get('/delete/:id', (req, res) => {
   Task.deleteOne({ _id: req.params.id }, (error) => {
     if (error) console.log(`there was an error: ${error}`);
     else {
-      res.redirect("/");
+      console.log('one task was deleted');
     }
   });
 });

@@ -1,0 +1,43 @@
+1-create app.js
+
+2-npm init -y
+
+---
+npm i express
+....
+const express = require('express');
+const app = express();
+...
+npm i mongoose
+...
+const mongoose = require('mongoose');
+....
+mongoose.connect('mongodb://localhost:27017/myapp');
+
+change to
+
+mongoose.connect('mongodb://localhost:27017/ToDo');
+
+then to
+
+mongoose.connect('mongodb://localhost:27017/ToDo',{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+************
+const schema = new mongoose.Schema({title: String});
+**********
+const Task = mongoose.model('Task', schema);
+****************
+//insert
+const firstTask = new Task({title: 'writing insert function'});
+firstTask.save().then(()=>console.log('new record inserted'));
+****************
+node app
+**************
+app.listen(3000,()=>console.log('express has started!'));
+***************************************
+//insert
+app.get('/create',(req,res)=>{
+    const firstTask = new Task({title: 'writing insert function'});
+    firstTask.save().then(()=>console.log('new record inserted'));
+})

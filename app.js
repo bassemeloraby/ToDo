@@ -1,10 +1,10 @@
 const express = require('express');
 const req = require('express/lib/request');
 const res = require('express/lib/response');
-const methodOverride = require('method-override');
-
 const mongoose = require('mongoose');
 const app = express();
+const methodOverride = require('method-override');
+
 const Task = require('./model/tasks');
 app.use(methodOverride('_method',{methods:['POST','GET']}));
 

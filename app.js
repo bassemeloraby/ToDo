@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const app = express();
 const methodOverride = require('method-override');
 
-const Task = require('./model/tasks');
 const router = require('./routes/tasks');
 
 app.use(methodOverride('_method',{methods:['POST','GET']}));

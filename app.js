@@ -20,4 +20,4 @@ mongoose.connect('mongodb://localhost:27017/ToDo', {
 
 app.use('/', router);
 
-app.listen(3000, () => console.log('express has started!'));
+app.listen(3000, () => console.log('To Do app is available at local host:3000'));

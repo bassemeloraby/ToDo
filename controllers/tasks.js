@@ -10,7 +10,7 @@ module.exports = {
     });
   },
   create: (req, res) => {
-    const firstTask = new Task({ title: req.body.title });
+    const firstTask = new Task({ title: req.body.title,name: req.body.name });
     firstTask.save().then(() => res.redirect('/'));
   },
   edit: (req, res) => {
@@ -21,7 +21,7 @@ module.exports = {
   },
   update: (req, res) => {
     const id = req.params.id;
-    Task.findByIdAndUpdate(id, { title: req.body.title }, (err) => {
+    Task.findByIdAndUpdate(id, { title: req.body.title,name: req.body.name  }, (err) => {
       if (err) return res.send(500, err);
       else res.redirect('/');
     });

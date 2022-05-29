@@ -26,8 +26,8 @@
         <h2 style="text-transform: capitalize">things i have to do</h2>
         <!-- add a task -->
         <form action="/create" method="post" style="display: inline-grid;">
-          <input type="text" name="title" />
-          <input type="text" name="name" />
+          <input type="text" name="title" placeholder="title" />
+          <input type="text" name="name" placeholder="name"/>
           <button type="submit" class="btn btn-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -52,9 +52,11 @@
         <div class="card" style="width: 18rem">
           <ul class="list-group list-group-flush">
             <% todotasks.forEach(tasks => { %>
-            <li class="list-group-item">
+            <li class="list-group-item" style="background-color: yellow;">
+              <label for="title">Title:</label>
               <%= tasks.title %>
             <li class="list-group-item">
+              <label for="name">Name:</label>
               <%= tasks.name %>
             <!-- update the task -->
             <a style="text-decoration: none;" href="update/<%=tasks.id%>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
